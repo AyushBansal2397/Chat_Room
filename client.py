@@ -6,8 +6,8 @@ flag = 0
 root = Tk()
 root.title("Chat Room")
 root.geometry("250x80+"+str(int(root.winfo_screenwidth()/2-125))+"+"+str(int(root.winfo_screenheight()/2-40)))
-add_entry = Entry(root)
-port_entry = Entry(root)
+add_Ety = Entry(root)
+port_Ety = Entry(root)
 
 class Client:
 
@@ -28,13 +28,16 @@ class Client:
 
 	def sendMsg(self, sock):
 		while True:
-			sock.send(bytes(input(""), "utf-8"))
+			sock.send(bytes(input(" Enter your msg : "), "utf-8"))
 
 def print_crap(event):
-	global add_entry, port_entry
-	if add_entry.get() != "" and port_entry.get() != "":
+	global add_Ety, port_Ety
+	add = add_Ety.get()
+	port = port_Ety.get()
+	if add != "" and port != "":
 		root.destroy()
-		Client((add_entry.get(), port_entry.get()))
+		ip = (add, int(port))
+		Client(ip)
 
 #GUI Part
 def GUI():
@@ -43,8 +46,8 @@ def GUI():
 	button = Button(root, text="Connect")
 	add.grid(row=0, column=0, pady=2, padx=2, sticky=E)
 	port.grid(row=1, column=0, sticky=E)
-	add_entry.grid(row=0, column=1)
-	port_entry.grid(row=1, column=1)
+	add_Ety.grid(row=0, column=1)
+	port_Ety.grid(row=1, column=1)
 	button.grid(row=2, column=1, columnspan=2)
 	button.bind("<Button-1>", print_crap)
 	root.mainloop()
